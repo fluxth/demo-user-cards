@@ -1,5 +1,7 @@
-import adapter from "@sveltejs/adapter-auto";
+import adapter from "@sveltejs/adapter-static";
 import preprocess from "svelte-preprocess";
+
+const DEBUG = process.env.NODE_ENV === "development";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -13,6 +15,13 @@ const config = {
 
   kit: {
     adapter: adapter(),
+    prerender: {
+      default: true,
+    },
+    paths: {
+      base: DEBUG ? "" : "/demo-user-cards",
+    },
+    trailingSlash: "always",
   },
 };
 
